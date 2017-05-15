@@ -1,8 +1,66 @@
 package tuffery.fr.fadabus.manager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.HashSet;
+
+import tuffery.fr.fadabus.contract.IDatabaseManager;
+import tuffery.fr.fadabus.model.BusStop;
+import tuffery.fr.fadabus.model.BusStopImage;
+
 /**
  * Created by Aurelien on 15/05/2017.
  */
 
-public class Database {
+public enum  Database implements IDatabaseManager{
+    instance;
+    private final static String PREF_FILE_NAME = "FADASBUS";
+    private SharedPreferences prefs;
+    private Gson gson;
+    private void init(Context context){
+        if (prefs == null){
+            prefs = context.getSharedPreferences(PREF_FILE_NAME,Context.MODE_PRIVATE);
+        }
+        if (gson == null){
+            gson = new Gson();
+        }
+    }
+    private void storeImages(Context context, HashSet<BusStopImage> busStopImages, String key){
+        init(context);
+        Type listType = new TypeToken<HashSet<BusStopImage>>(){}.getType();
+        String jsonImages = gson.toJson(busStopImages,listType);
+        prefs.edit().putString(key, jsonImages).apply();
+    }
+
+    private HashSet<BusStopImage> getImages(Context context, String key){
+        init(context);
+        String jsonImages = prefs.getString(key,"");
+        Type listType = new TypeToken<HashSet<BusStopImage>>(){}.getType();
+        return gson.fromJson(jsonImages,listType);
+    }
+
+
+    @Override
+    public HashSet<BusStopImage> getBusStopImages(Context context, String id) {
+        return getImages(context,id);
+    }
+
+    @Override
+    public void saveImage(Context context, BusStopImage busStopImage, String id) {
+        HashSet<BusStopImage> busStopImages = getImages(context,id);
+        busStopImages.add(busStopImage);
+        storeImages(context,busStopImages, id);
+    }
+
+    @Override
+    public void deleteImage(Context context, BusStopImage busStopImage, String id) {
+        HashSet<BusStopImage> busStopImages = getImages(context,id);
+        busStopImages.remove(busStopImage);
+        storeImages(context,busStopImages,id);
+    }
 }
