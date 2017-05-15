@@ -7,10 +7,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.HashSet;
+import java.util.List;
 
 import tuffery.fr.fadabus.contract.IDatabaseManager;
-import tuffery.fr.fadabus.model.BusStop;
 import tuffery.fr.fadabus.model.BusStopImage;
 
 /**
@@ -30,36 +29,36 @@ public enum  Database implements IDatabaseManager{
             gson = new Gson();
         }
     }
-    private void storeImages(Context context, HashSet<BusStopImage> busStopImages, String key){
+    private void storeImages(Context context, List<BusStopImage> busStopImages, String key){
         init(context);
-        Type listType = new TypeToken<HashSet<BusStopImage>>(){}.getType();
+        Type listType = new TypeToken<List<BusStopImage>>(){}.getType();
         String jsonImages = gson.toJson(busStopImages,listType);
         prefs.edit().putString(key, jsonImages).apply();
     }
 
-    private HashSet<BusStopImage> getImages(Context context, String key){
+    private List<BusStopImage> getImages(Context context, String key){
         init(context);
         String jsonImages = prefs.getString(key,"");
-        Type listType = new TypeToken<HashSet<BusStopImage>>(){}.getType();
+        Type listType = new TypeToken<List<BusStopImage>>(){}.getType();
         return gson.fromJson(jsonImages,listType);
     }
 
 
     @Override
-    public HashSet<BusStopImage> getBusStopImages(Context context, String id) {
+    public List<BusStopImage> getBusStopImages(Context context, String id) {
         return getImages(context,id);
     }
 
     @Override
     public void saveImage(Context context, BusStopImage busStopImage, String id) {
-        HashSet<BusStopImage> busStopImages = getImages(context,id);
+        List<BusStopImage> busStopImages = getImages(context,id);
         busStopImages.add(busStopImage);
         storeImages(context,busStopImages, id);
     }
 
     @Override
     public void deleteImage(Context context, BusStopImage busStopImage, String id) {
-        HashSet<BusStopImage> busStopImages = getImages(context,id);
+        List<BusStopImage> busStopImages = getImages(context,id);
         busStopImages.remove(busStopImage);
         storeImages(context,busStopImages,id);
     }

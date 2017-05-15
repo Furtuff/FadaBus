@@ -2,7 +2,9 @@ package tuffery.fr.fadabus.contract;
 
 import android.content.Context;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import tuffery.fr.fadabus.model.BusStopImage;
 
@@ -11,7 +13,7 @@ import tuffery.fr.fadabus.model.BusStopImage;
  */
 
 public interface IDatabaseManager {
-    HashSet<BusStopImage> getBusStopImages(Context context, String id);
+    List<BusStopImage> getBusStopImages(Context context, String id);
     void saveImage(Context context, BusStopImage busStopImage, String id);
     void deleteImage(Context context,BusStopImage busStopImage, String id);
 }

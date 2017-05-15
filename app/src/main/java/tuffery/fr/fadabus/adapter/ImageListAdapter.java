@@ -1,5 +1,7 @@
 package tuffery.fr.fadabus.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import java.util.HashSet;
 import java.util.List;
 
+import tuffery.fr.fadabus.Factory;
 import tuffery.fr.fadabus.R;
 import tuffery.fr.fadabus.model.BusStop;
 import tuffery.fr.fadabus.model.BusStopImage;
@@ -32,13 +35,23 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
-            holder.dateText.setText(busStopsImages.get(position).date);
+            holder.busStopImage.setImageBitmap(convertByteToBitmap(busStopsImages.get(position).image));
+            holder.dateText.setText(stringformat(busStopsImages.get(position).date));
     }
 
     @Override
     public int getItemCount() {
-        return busStops.size();
+        return busStopsImages.size();
+    }
+
+    private String stringformat(long time){
+        return Factory.DateFormat.format(time);
+    }
+    private Bitmap convertByteToBitmap(byte[] image){
+        BitmapFactory.Options option = null;
+        option = new BitmapFactory.Options();
+        option.inSampleSize = 2;
+        return BitmapFactory.decodeByteArray(image, 0, image.length, option);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

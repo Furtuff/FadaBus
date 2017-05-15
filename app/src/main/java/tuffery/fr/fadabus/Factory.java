@@ -1,5 +1,8 @@
 package tuffery.fr.fadabus;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import tuffery.fr.fadabus.contract.ICommunicationManager;
 import tuffery.fr.fadabus.contract.IDatabaseManager;
 import tuffery.fr.fadabus.manager.Communication;
@@ -11,6 +14,7 @@ import tuffery.fr.fadabus.manager.Database;
 
 public enum  Factory {
     instance;
+    public static final SimpleDateFormat DateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
     static Communication communication;
     static Database database;
 
