@@ -35,7 +35,7 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.busStopName.setText(busStops.get(position).streetName);
-        holder.busStopName.setOnClickListener(new View.OnClickListener() {
+        holder.busStopName.getRootView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context.startActivity(ImageList.BuildImageListIntent(context,busStops.get(position).streetName));
