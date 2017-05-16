@@ -6,6 +6,6 @@ package tuffery.fr.fadabus.model;
 
 public class BusStopImage {
     public byte[] image;
-    public String Title;
-    public long date;
+    public String title;
+    public String date;
 }

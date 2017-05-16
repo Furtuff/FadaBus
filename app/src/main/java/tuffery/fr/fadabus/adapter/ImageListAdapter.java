@@ -36,7 +36,8 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
             holder.busStopImage.setImageBitmap(convertByteToBitmap(busStopsImages.get(position).image));
-            holder.dateText.setText(stringformat(busStopsImages.get(position).date));
+            holder.dateText.setText(busStopsImages.get(position).date);
+            holder.titleText.setText(busStopsImages.get(position).title);
     }
 
     @Override
@@ -53,13 +54,18 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
         option.inSampleSize = 2;
         return BitmapFactory.decodeByteArray(image, 0, image.length, option);
     }
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public void swap(List<BusStopImage> newList){
+        busStopsImages.clear();
+        busStopsImages.addAll(newList);
+        notifyDataSetChanged();
+    }
+     class ViewHolder extends RecyclerView.ViewHolder{
         ImageView busStopImage;
-        TextView dateText;
+        TextView dateText,titleText;
 
-        public ViewHolder(View itemView) {
+         ViewHolder(View itemView) {
             super(itemView);
+             titleText = (TextView)itemView.findViewById(R.id.titleElement);
             busStopImage = (ImageView)itemView.findViewById(R.id.busStopImage);
             dateText = (TextView)itemView.findViewById(R.id.dateText);
         }

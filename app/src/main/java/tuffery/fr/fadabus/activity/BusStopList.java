@@ -32,7 +32,7 @@ RecyclerView busStopRecycler;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                BusStopAdapter busStopAdapter = new BusStopAdapter(busStopList.busStops);
+                BusStopAdapter busStopAdapter = new BusStopAdapter(BusStopList.this,busStopList.busStops);
                 busStopRecycler.setAdapter(busStopAdapter);
             }
         });

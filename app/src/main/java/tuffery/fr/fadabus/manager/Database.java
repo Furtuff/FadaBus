@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import tuffery.fr.fadabus.contract.IDatabaseManager;
@@ -52,6 +53,9 @@ public enum  Database implements IDatabaseManager{
     @Override
     public void saveImage(Context context, BusStopImage busStopImage, String id) {
         List<BusStopImage> busStopImages = getImages(context,id);
+        if (busStopImages == null){
+            busStopImages = new ArrayList<>();
+        }
         busStopImages.add(busStopImage);
         storeImages(context,busStopImages, id);
     }
@@ -59,7 +63,9 @@ public enum  Database implements IDatabaseManager{
     @Override
     public void deleteImage(Context context, BusStopImage busStopImage, String id) {
         List<BusStopImage> busStopImages = getImages(context,id);
-        busStopImages.remove(busStopImage);
-        storeImages(context,busStopImages,id);
+        if (busStopImages != null) {
+            busStopImages.remove(busStopImage);
+            storeImages(context, busStopImages, id);
+        }
     }
 }

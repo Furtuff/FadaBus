@@ -1,5 +1,7 @@
 package tuffery.fr.fadabus.adapter;
 
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import tuffery.fr.fadabus.R;
+import tuffery.fr.fadabus.activity.ImageList;
 import tuffery.fr.fadabus.model.BusStop;
 
 /**
@@ -17,7 +20,9 @@ import tuffery.fr.fadabus.model.BusStop;
 
 public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.ViewHolder>{
     private List<BusStop> busStops;
-    public BusStopAdapter(List<BusStop> busStops){
+    private Context context;
+    public BusStopAdapter(Context context,List<BusStop> busStops){
+        this.context =context;
         this.busStops = busStops;
     }
     @Override
@@ -28,8 +33,14 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.busStopName.setText(busStops.get(position).streetName);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        holder.busStopName.setText(busStops.get(position).streetName);
+        holder.busStopName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(ImageList.BuildImageListIntent(context,busStops.get(position).streetName));
+            }
+        });
     }
 
     @Override

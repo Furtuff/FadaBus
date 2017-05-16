@@ -14,7 +14,7 @@ import tuffery.fr.fadabus.manager.Database;
 
 public enum  Factory {
     instance;
-    public static final SimpleDateFormat DateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+    public static final SimpleDateFormat DateFormat = new SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault());
     static Communication communication;
     static Database database;
 
