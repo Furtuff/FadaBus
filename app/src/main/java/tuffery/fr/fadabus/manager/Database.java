@@ -61,10 +61,10 @@ public enum  Database implements IDatabaseManager{
     }
 
     @Override
-    public void deleteImage(Context context, BusStopImage busStopImage, String id) {
+    public void deleteImage(Context context, int position, String id) {
         List<BusStopImage> busStopImages = getImages(context,id);
         if (busStopImages != null) {
-            busStopImages.remove(busStopImage);
+            busStopImages.remove(position);
             storeImages(context, busStopImages, id);
         }
     }

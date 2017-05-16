@@ -3,16 +3,13 @@ package tuffery.fr.fadabus.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +20,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -62,7 +58,7 @@ public class ImageList extends AppCompatActivity {
             getSupportActionBar().setTitle(this.streetName);
             List<BusStopImage> busStopImages = Factory.instance.getIDatabaseManager().getBusStopImages(this,streetName);
             if (busStopImages != null){
-                imageListAdapter = new ImageListAdapter(busStopImages);
+                imageListAdapter = new ImageListAdapter(busStopImages, streetName);
                 imageRecycler.setAdapter(imageListAdapter);
             }
         }
@@ -150,7 +146,7 @@ public class ImageList extends AppCompatActivity {
         if (imageListAdapter != null){
             imageListAdapter.swap(Factory.instance.getIDatabaseManager().getBusStopImages(getApplicationContext(),streetName));
         }else {
-            imageListAdapter = new ImageListAdapter(Factory.instance.getIDatabaseManager().getBusStopImages(getApplicationContext(),streetName));
+            imageListAdapter = new ImageListAdapter(Factory.instance.getIDatabaseManager().getBusStopImages(getApplicationContext(),streetName),streetName);
             imageRecycler.setAdapter(imageListAdapter);
         }
 

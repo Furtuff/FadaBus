@@ -1,12 +1,16 @@
 package tuffery.fr.fadabus.adapter;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.HashSet;
@@ -23,7 +27,9 @@ import tuffery.fr.fadabus.model.BusStopImage;
 
 public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.ViewHolder>{
     private List<BusStopImage> busStopsImages;
-    public ImageListAdapter(List<BusStopImage> busStopsImages){
+    private String streetName;
+    public ImageListAdapter(List<BusStopImage> busStopsImages, String streetName){
+        this.streetName =streetName;
         this.busStopsImages = busStopsImages;
     }
     @Override
@@ -34,10 +40,16 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.busStopImage.setImageBitmap(convertByteToBitmap(busStopsImages.get(position).image));
             holder.dateText.setText(busStopsImages.get(position).date);
             holder.titleText.setText(busStopsImages.get(position).title);
+        holder.trash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialog(v,busStopsImages.get(position),position);
+            }
+        });
     }
 
     @Override
@@ -45,9 +57,6 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
         return busStopsImages.size();
     }
 
-    private String stringformat(long time){
-        return Factory.DateFormat.format(time);
-    }
     private Bitmap convertByteToBitmap(byte[] image){
         BitmapFactory.Options option = null;
         option = new BitmapFactory.Options();
@@ -59,15 +68,41 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
         busStopsImages.addAll(newList);
         notifyDataSetChanged();
     }
+    private void showAlertDialog(View v, final BusStopImage busStopImage, final int position){
+        final AlertDialog alertbox = new AlertDialog.Builder(v.getRootView().getContext()).create();
+        alertbox.setMessage("Are you Sure ?");
+        alertbox.setTitle("Delete image");
+        RelativeLayout relativeLayout = new RelativeLayout(v.getContext());
+        LayoutInflater layoutInflater = LayoutInflater.from(v.getContext());
+        View alertView = layoutInflater.inflate(R.layout.alert_box_delete, relativeLayout);
+        alertView.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertbox.dismiss();
+            }
+        });
+        alertView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Factory.instance.getIDatabaseManager().deleteImage(v.getContext(),position,streetName);
+                busStopsImages.remove(busStopImage);
+                notifyDataSetChanged();
+                alertbox.dismiss();
+            }
+        });
+        alertbox.setView( alertView);
+        alertbox.show();
+    }
      class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView busStopImage;
+        ImageView busStopImage, trash;
         TextView dateText,titleText;
 
          ViewHolder(View itemView) {
             super(itemView);
-             titleText = (TextView)itemView.findViewById(R.id.titleElement);
+            titleText = (TextView)itemView.findViewById(R.id.titleElement);
             busStopImage = (ImageView)itemView.findViewById(R.id.busStopImage);
             dateText = (TextView)itemView.findViewById(R.id.dateText);
+             trash = (ImageView)itemView.findViewById(R.id.trash);
         }
     }
 }

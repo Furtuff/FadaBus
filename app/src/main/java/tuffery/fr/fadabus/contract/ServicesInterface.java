@@ -2,7 +2,6 @@ package tuffery.fr.fadabus.contract;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import tuffery.fr.fadabus.model.BusStopList;
 import tuffery.fr.fadabus.model.Data;
 
 /**

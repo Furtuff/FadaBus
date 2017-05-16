@@ -15,5 +15,5 @@ import tuffery.fr.fadabus.model.BusStopImage;
 public interface IDatabaseManager {
     List<BusStopImage> getBusStopImages(Context context, String id);
     void saveImage(Context context, BusStopImage busStopImage, String id);
-    void deleteImage(Context context,BusStopImage busStopImage, String id);
+    void deleteImage(Context context, int position, String id);
 }
