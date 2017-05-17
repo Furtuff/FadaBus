@@ -7,11 +7,9 @@ import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -25,11 +23,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.HashMap;
 import java.util.List;
 
 import tuffery.fr.fadabus.R;
-import tuffery.fr.fadabus.model.*;
+import tuffery.fr.fadabus.model.BusStop;
 import tuffery.fr.fadabus.model.BusStopList;
 
 public class BusStopMaps extends BaseMenuActivity implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickListener {
@@ -97,7 +94,7 @@ public class BusStopMaps extends BaseMenuActivity implements OnMapReadyCallback,
             for (BusStop b : busStops){
                 mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(b.lat,b.lon))
-                .snippet("d")
+                        .snippet("")
                 .title(b.streetName)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_stop_maps_pin)));
             }

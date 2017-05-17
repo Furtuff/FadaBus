@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/add"
-        android:title="add"
         android:icon="@drawable/image_list_add"
+        android:title="@string/add_menu_item"
         app:showAsAction="always"/>
 </menu>

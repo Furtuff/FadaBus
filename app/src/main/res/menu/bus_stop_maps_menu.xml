@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/list"
-        android:title="list"
         android:icon="@drawable/bus_stop_maps_list"
+        android:title="@string/list_menu_item"
         app:showAsAction="always"/>
 </menu>
