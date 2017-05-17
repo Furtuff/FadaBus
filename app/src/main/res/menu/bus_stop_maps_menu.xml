@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/add"
-        android:title="add"
-        android:icon="@drawable/bus_stop_image_list_add"
+    <item android:id="@+id/list"
+        android:title="list"
+        android:icon="@drawable/bus_stop_maps_list"
         app:showAsAction="always"/>
 </menu>

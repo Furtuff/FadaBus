@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -28,9 +27,8 @@ import tuffery.fr.fadabus.R;
 import tuffery.fr.fadabus.adapter.ImageListAdapter;
 import tuffery.fr.fadabus.model.BusStopImage;
 
-public class ImageList extends AppCompatActivity {
+public class ImageList extends BaseMenuActivity {
     private final static String EXTRA_BUS_STOP_NAME = "BUS_STOP_NAME";
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     RecyclerView imageRecycler;
     ImageListAdapter imageListAdapter;
     ConstraintLayout popupLayout, parentImageList;
@@ -67,22 +65,6 @@ public class ImageList extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.image_menu,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.add:
-                dispatchTakePictureIntent();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {

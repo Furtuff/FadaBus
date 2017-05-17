@@ -11,15 +11,13 @@ import tuffery.fr.fadabus.Factory;
 import tuffery.fr.fadabus.R;
 import tuffery.fr.fadabus.adapter.BusStopAdapter;
 import tuffery.fr.fadabus.contract.BusListListener;
-import tuffery.fr.fadabus.model.BusStop;
 
 /**
  * Created by Aurelien on 15/05/2017.
  */
 
-public class BusStopList extends AppCompatActivity implements BusListListener {
+public class BusStopList extends BaseMenuActivity implements BusListListener {
     private RecyclerView busStopRecycler;
-    private tuffery.fr.fadabus.model.BusStopList busStops;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,20 +39,5 @@ public class BusStopList extends AppCompatActivity implements BusListListener {
             }
         });
 
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.bus_stop_map_menu,menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.map:
-                startActivity(BusStopMaps.BusStopMapsIntentBuilder(this,busStops));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

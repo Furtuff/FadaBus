@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ import tuffery.fr.fadabus.R;
 import tuffery.fr.fadabus.model.*;
 import tuffery.fr.fadabus.model.BusStopList;
 
-public class BusStopMaps extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickListener {
+public class BusStopMaps extends BaseMenuActivity implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickListener {
     public static final String EXTRA_BUS_STOP_LIST = "BUS_STOP_LIST";
     private GoogleMap mMap;
     private List<BusStop> busStops;
