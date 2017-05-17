@@ -130,4 +130,12 @@ public class ImageList extends BaseMenuActivity {
         }
 
     }
+
+    @Override
+    protected void onPause() {
+        if (ImageListAdapter.shareWindow != null) {
+            ImageListAdapter.shareWindow.dismiss();
+        }
+        super.onPause();
+    }
 }
